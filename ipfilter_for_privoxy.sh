@@ -1,4 +1,7 @@
 #!/bin/bash
+#
+# disable all connection is not Germany contry
+#
 for i in $(netstat -n | egrep '(8118.*ESTABLISHED)'| egrep -o '([0-9]{1,3}\.){3}[0-9]{1,3}' | sort | uniq);do
 IPCOUNTRY=$(geoiplookup $i)
 if [ "$(echo $IPCOUNTRY | awk '{print $5}')" = "Germany" ];then :;else
