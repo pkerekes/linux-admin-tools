@@ -1,5 +1,11 @@
 #!/bin/bash
 #
+# https://mattwilcox.net/web-development/unexpected-ddos-blocking-china-with-ipset-and-iptables
+# http://www.cyberciti.biz/faq/block-entier-country-using-iptables/
+# http://blog.bodhizazen.net/linux/web-content-filtering-made-easy/
+# http://blog.bodhizazen.net/linux/how-to-transparent-proxy/ 
+# http://xmodulo.com/block-network-traffic-by-country-linux.html
+#
 # Execude Countries (separate with pipe)
 EX_CO="DE|HU"
 #
@@ -18,6 +24,10 @@ cd geoip/
 mkdir -p /usr/share/xt_geoip && cp -r {BE,LE} /usr/share/xt_geoip 
 for COUNTRY in $(cat ${XT_DIR}/geoip/GeoIPCountryWhois.csv | awk -F'","' '{print $5}' | sort | uniq | egrep -v "$EX_CO");do 
 #
+# Block incoming traffic from ${COUNTRY}
+# iptables -I INPUT -m geoip --src-cc YE,ZM -j DROP
+# Block outgoing traffic destined to ${COUNTRY}
+# iptables -A OUTPUT -m geoip --dst-cc CN -j DROP 
 iptables -I INPUT -m geoip --src-cc ${COUNTRY} -j DROP;
 #
 done
