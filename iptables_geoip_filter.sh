@@ -24,5 +24,7 @@ done
 #iptables -nvL | awk awk '$2>0{print}'
 #iptables -nvL
 #netstat -tunp
-
-
+#
+# Print list of Countries
+#
+cat ${XT_DIR}/geoip/GeoIPCountryWhois.csv | awk -F'","' '{print $5" "$6}' | sed 's/"//g;s/, *//g;s/ of//g' | sort | uniq | pr -4 -l74 -w200
