@@ -8,6 +8,8 @@
 # http://blog.bodhizazen.net/linux/how-to-transparent-proxy/ 
 # http://xmodulo.com/block-network-traffic-by-country-linux.html
 #
+which xtables-multi # /sbin/xtables-multi # echo $?
+
 # Execude Countries (separate with pipe)
 EX_CO="DE|HU"
 #
@@ -33,7 +35,7 @@ for COUNTRY in $(cat ${XT_DIR}/geoip/GeoIPCountryWhois.csv | awk -F'","' '{print
 iptables -I INPUT -m geoip --src-cc ${COUNTRY} -j DROP;
 #
 done
-#iptables -nvL | awk awk '$2>0{print}'
+#iptables -nvL | awk '$2>0{print}'
 #iptables -nvL
 #netstat -tunp
 #
