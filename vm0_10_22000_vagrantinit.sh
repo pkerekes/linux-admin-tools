@@ -34,7 +34,7 @@ test -d ./vm-data || mkdir vm-data
 #
 test -f ./vm-init.sh || cat << 'INITEOF' >> vm-init.sh
 fmakebashrc () {
-test -e Vagrantfile && rm $BASHRC_DIR/.bashrc
+test -e $BASHRC_DIR/.bashrc && rm $BASHRC_DIR/.bashrc
 cat << 'EOF' >> $BASHRC_DIR/.bashrc
 case $- in
     *i*) ;;
@@ -69,7 +69,7 @@ EOF
 }
 ###
 fmakebashaliases () {
-test -e Vagrantfile && rm $BASHRC_DIR/.bash_aliases 
+test -e $BASHRC_DIR/.bash_aliases  && rm $BASHRC_DIR/.bash_aliases 
 cat << 'EOF' >> $BASHRC_DIR/.bash_aliases 
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
@@ -82,8 +82,19 @@ alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo
 EOF
 }
 ###
-BASHRC_DIR=/root;fmakebashrc;fmakebashaliases;
-BASHRC_DIR=/home/ubuntu;fmakebashrc;fmakebashaliases;
+fmakeprofiles () {
+test -e $BASHRC_DIR/.profile && rm $BASHRC_DIR/.profile
+cat << 'EOF' >> $BASHRC_DIR/.profile
+if [ "$BASH" ]; then
+  if [ -f ~/.bashrc ]; then
+    . ~/.bashrc
+  fi
+fi
+EOF
+}
+###
+BASHRC_DIR=/root;fmakebashrc;fmakebashaliases;fmakeprofiles;
+BASHRC_DIR=/home/ubuntu;fmakebashrc;fmakebashaliases;fmakeprofiles;
 apt update && apt upgrade -y
 INITEOF
 #
