@@ -1,6 +1,9 @@
 apt-get remove --purge kmail korganizer kwalletmanager kontact knotes ktnef konversation krdc klipper kde-telepathy-contact-list ktorrent libkf5ksieve5 libkf5ksieveui5 dragonplayer akregator kaddressbook kate
-cp /etc/apt/sources.list /etc/apt/sources-list-initial.back
 
+
+cp /etc/apt/sources.list /etc/apt/sources-list-initial.back
+rm /etc/apt/sources.list/*
+cat << 'EOF' >> /etc/apt/sources.list
 #------------------------------------------------------------------------------#
 #                            OFFICIAL UBUNTU REPOS                             #
 #------------------------------------------------------------------------------#
@@ -40,19 +43,14 @@ deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main
 ## Run this command: sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 6A68F637
 deb http://ppa.launchpad.net/jd-team/jdownloader/ubuntu xenial main
 #
-
-
-
-
+EOF
 apt-key adv --recv-keys --keyserver keyserver.ubuntu.com 614C4B38
 wget -q https://dl.google.com/linux/linux_signing_key.pub -O- | apt-key add -
 apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 6A68F637
-
 add-apt-repository ppa:kubuntu-ppa/backports -y
+#
+apt-get clean && apt update && apt dist-upgrade -y
 
-
-
-apt update && apt dist-upgrade -y
 
 
 
