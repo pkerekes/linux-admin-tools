@@ -1,0 +1,83 @@
+#docker build -t ubunru1604:nginxphp7 -f Dockerfile_nginxphp7 .
+FROM ubuntu:16.04
+LABEL devtops webserver
+MAINTAINER Peter Kerekes <mail@kerekespeterjanso.hu>
+RUN apt-get -qq update && apt-get -qq install -y --allow-unauthenticated \
+        python-software-properties \
+        apt-file \
+        software-properties-common \
+        nginx \
+        vim \
+        wget \
+        curl \
+        git \
+        unzip \
+        sysv-rc-conf \
+        language-pack-en-base \
+        python-software-properties && \
+        locale-gen en_US.UTF-8 && \
+        export LANG=en_US.UTF-8 && \
+        export LANG=C.UTF-8 && \
+        sysv-rc-conf --level 0 nginx off; \
+        sysv-rc-conf --level 1 nginx off; \
+        sysv-rc-conf --level 2 nginx on; \
+        sysv-rc-conf --level 3 nginx on; \
+        sysv-rc-conf --level 4 nginx on; \
+        sysv-rc-conf --level 5 nginx on; \
+        sysv-rc-conf --level 6 nginx off; \
+        add-apt-repository -y ppa:ondrej/php; \
+        apt-get update && apt-get install -y --allow-unauthenticated \
+        php7.0; \
+        apt-get -qq install -y --allow-unauthenticated \
+        php-all-dev \
+        php7.0 \
+        php7.0-cgi \
+        php7.0-cli \
+        php7.0-common \
+        php7.0-curl \
+        php7.0-dev \
+        php7.0-gd \
+        php7.0-gmp \
+        php7.0-json \
+        php7.0-ldap \
+        php7.0-mysql \
+        php7.0-odbc \
+        php7.0-opcache \
+        php7.0-pgsql \
+        php7.0-pspell \
+        php7.0-readline \
+        php7.0-recode \
+        php7.0-snmp \
+        php7.0-sqlite3 \
+        php7.0-tidy \
+        php7.0-xml \
+        php7.0-xmlrpc \
+        libphp7.0-embed \
+        php7.0-bcmath \
+        php7.0-bz2 \
+        php7.0-enchant \
+        php7.0-fpm \
+        php7.0-imap \
+        php7.0-interbase \
+        php7.0-intl \
+        php7.0-mbstring \
+        php7.0-mcrypt \
+        php7.0-phpdbg \
+        php7.0-soap \
+        php7.0-sybase \
+        php7.0-xsl \
+        php7.0-zip \
+        php7.0-dba \
+        php-fpm \
+        php-mysql;\
+        sysv-rc-conf --level 0 php7.0-fpm off; \
+        sysv-rc-conf --level 1 php7.0-fpm off; \
+        sysv-rc-conf --level 2 php7.0-fpm on; \
+        sysv-rc-conf --level 3 php7.0-fpm on; \
+        sysv-rc-conf --level 4 php7.0-fpm on; \
+        sysv-rc-conf --level 5 php7.0-fpm on; \
+        locale-gen en_US.UTF-8; \
+        apt-get remove apache2 --purge; \
+        apt autoremove -qq -y; \
+        /etc/init.d/nginx start;service php7.0-fpm start
+
