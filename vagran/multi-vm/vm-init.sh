@@ -1,4 +1,5 @@
 #Add user
+# test commit
 USERNAME='nemo'
 USERPASS='toor123'
 adduser $USERNAME --gecos "First Last,RoomNumber,WorkPhone,HomePhone" --disabled-password  && echo "$USERNAME:$USERPASS" | chpasswd
