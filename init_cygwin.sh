@@ -125,6 +125,13 @@ libpcre1
 ping
 httping
 gdb
+odbc-mdb
+odbc-mysql
+odbc-psql
+odbc-sqlite3
+odbc-tds
+lftp
+ssh-pageant
 '
 for i in $INSTALL_APPS;  do apt-cyg install $i;done
 ###
