@@ -13,6 +13,7 @@ rpi-source
 # --- Install the xtables-addons build dependencies:
 apt-get install git autoconf automake libtool xutils-dev
 # ---
+cd /opt
 git clone git://git.code.sf.net/p/xtables-addons/xtables-addons
 cd xtables-addons
 libtoolize --force
