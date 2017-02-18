@@ -1,5 +1,7 @@
 #!/bin/bash
 #
+# Install Dependencies on Debian, Ubuntu or Linux Mint
+apt-get install iptables-dev xtables-addons-common libtext-csv-xs-perl pkg-config 
 # http://xtables-addons.sourceforge.net/
 #
 # https://mattwilcox.net/web-development/unexpected-ddos-blocking-china-with-ipset-and-iptables
